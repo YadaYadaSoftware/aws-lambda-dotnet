@@ -158,6 +158,8 @@ namespace Amazon.Lambda.Annotations.SourceGenerator.Writers
                             _processedResources.Add(queueLogicalId);
                         }
                         break;
+                    case AttributeModel<S3EventAttribute> s3AttributeModel:
+                        break;
                 }
             }
 

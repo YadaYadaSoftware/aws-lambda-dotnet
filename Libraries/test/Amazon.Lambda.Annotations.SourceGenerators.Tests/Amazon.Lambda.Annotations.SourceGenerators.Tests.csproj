@@ -41,10 +41,15 @@
         </Content>
         <Content Remove="..\..\src\Amazon.Lambda.Annotations\obj\**" />
 		<Content Remove="..\..\src\Amazon.Lambda.Annotations\bin\**" />
+		<EmbeddedResource Remove="Models\**" />
+		<None Remove="Models\**" />
 		<Content Remove="..\..\src\Amazon.Lambda.Annotations\Amazon.Lambda.Annotations.csproj" />
+		<Content Remove="..\..\src\Amazon.Lambda.Annotations\IS3Event.cs" />
+		<Content Remove="..\..\src\Amazon.Lambda.Annotations\S3Attribute.cs" />
     </ItemGroup>
 
     <ItemGroup>
+      <Compile Remove="Models\**" />
       <Compile Remove="Snapshots\**" />
     </ItemGroup>
 
@@ -73,10 +78,6 @@
       <ProjectReference Include="..\..\src\Amazon.Lambda.Core\Amazon.Lambda.Core.csproj" AdditionalProperties="TargetFramework=netstandard2.0" />
       <ProjectReference Include="..\..\src\Amazon.Lambda.Serialization.SystemTextJson\Amazon.Lambda.Serialization.SystemTextJson.csproj" />
       <ProjectReference Include="..\..\src\Amazon.Lambda.SQSEvents\Amazon.Lambda.SQSEvents.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Models\Attributes\" />
     </ItemGroup>
 
 

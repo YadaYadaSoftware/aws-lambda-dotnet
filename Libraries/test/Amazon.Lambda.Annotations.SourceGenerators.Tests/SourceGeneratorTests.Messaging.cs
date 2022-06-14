@@ -16,7 +16,7 @@ namespace Amazon.Lambda.Annotations.SourceGenerators.Tests
 {
     public partial class SourceGeneratorTests
     {
-        [Fact(DisplayName = nameof(MessageHandlerForPreExistingQueue))]
+        [Fact(DisplayName = nameof(EventBridgeRuleTest))]
         public async Task MessageHandlerForPreExistingQueue()
         {
             const string generatedNewFifoQueueUsingFnSubForQueueName = "Messaging_MessageHandlerForNewFifoQueueUsingFnSubForQueueName_Generated.g.cs";

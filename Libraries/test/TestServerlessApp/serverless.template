@@ -575,11 +575,7 @@
       },
       "Properties": {
         "FifoQueue": true,
-        "QueueName": {
-          "Fn::Sub": [
-            "${AWS::Stack}MyFifoQueueWithStackEmbedded.fifo"
-          ]
-        }
+        "QueueName": "TestServerlessAppMessagingMessageHandlerForNewFifoQueueWithoutAQueueNameGeneratedQueue.fifo"
       }
     }
   },

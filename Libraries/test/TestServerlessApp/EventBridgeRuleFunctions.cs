@@ -13,6 +13,7 @@ namespace TestServerlessApp
     {
 
         [LambdaFunction]
+        [EventBridgeRule(EventPattern = "MyPattern")]
         public Task SampleEventHandler(CloudWatchEvent<SampleEvent> input, ILambdaContext context)
         {
             return Task.CompletedTask;

@@ -158,6 +158,10 @@ namespace Amazon.Lambda.Annotations.SourceGenerator.Writers
                             _processedResources.Add(queueLogicalId);
                         }
                         break;
+                    case AttributeModel<EventBridgeRuleAttribute> eventBridgeModel:
+                        var eventBridgeRule = EventBridgeRuleModelBuilder.Build(lambdaFunction, eventBridgeModel.Data);
+                        eventName = ProcessEventBridgeRuleAttribute(lambdaFunction, eventBridgeRule);
+                        break;
                 }
             }
 
@@ -665,7 +669,7 @@ namespace Amazon.Lambda.Annotations.SourceGenerator.Writers
                 }
                 else
                 {
-                        _jsonWriter.RemoveToken(filterCriteriaPropertiesPath);
+                    _jsonWriter.RemoveToken(filterCriteriaPropertiesPath);
                 }
 
             }
@@ -684,6 +688,21 @@ namespace Amazon.Lambda.Annotations.SourceGenerator.Writers
                 _jsonWriter.RemoveToken(eventMaximumBatchingWindowInSecondsPropertyPath);
             }
 
+
+            return eventName;
+        }
+        private string ProcessEventBridgeRuleAttribute(ILambdaFunctionSerializable lambdaFunction, IEventBridgeRuleSerializable eventBridgeRuleSerializable)
+        {
+            string handle = "EventBridgeRule";
+
+            var eventName = $"{lambdaFunction.Name}{handle}";
+            var eventPath = $"Resources.{lambdaFunction.Name}.Properties.Events";
+            var methodPath = $"{eventPath}.{eventName}";
+
+            _jsonWriter.SetToken($"{methodPath}.Type", "EventBridgeRule");
+
+
+            WriteOrRemove($"{methodPath}.Pattern", eventBridgeRuleSerializable.EventPattern, string.Empty);
 
             return eventName;
         }

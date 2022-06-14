@@ -16,7 +16,13 @@
           "AWSLambdaBasicExecutionRole"
         ],
         "PackageType": "Zip",
-        "Handler": "TestProject::TestServerlessApp.EventBridgeRuleFunctions_SampleEventHandler_Generated::SampleEventHandler"
+        "Handler": "TestProject::TestServerlessApp.EventBridgeRuleFunctions_SampleEventHandler_Generated::SampleEventHandler",
+        "Events": {
+          "TestServerlessAppEventBridgeRuleFunctionsSampleEventHandlerGeneratedEventBridgeRule": {
+            "Type": "EventBridgeRule",
+            "Pattern": "MyPattern"
+          }
+        }
       }
     }
   }

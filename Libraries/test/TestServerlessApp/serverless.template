@@ -577,6 +577,28 @@
         "FifoQueue": true,
         "QueueName": "TestServerlessAppMessagingMessageHandlerForNewFifoQueueWithoutAQueueNameGeneratedQueue.fifo"
       }
+    },
+    "TestServerlessAppEventBridgeRuleFunctionsSampleEventHandlerGenerated": {
+      "Type": "AWS::Serverless::Function",
+      "Metadata": {
+        "Tool": "Amazon.Lambda.Annotations"
+      },
+      "Properties": {
+        "Runtime": "dotnet6",
+        "CodeUri": ".",
+        "MemorySize": 256,
+        "Timeout": 30,
+        "Policies": [
+          "AWSLambdaBasicExecutionRole"
+        ],
+        "PackageType": "Zip",
+        "Handler": "TestServerlessApp::TestServerlessApp.EventBridgeRuleFunctions_SampleEventHandler_Generated::SampleEventHandler",
+        "Events": {
+          "TestServerlessAppEventBridgeRuleFunctionsSampleEventHandlerGeneratedEventBridgeRule": {
+            "Pattern": "MyPattern"
+          }
+        }
+      }
     }
   },
   "Outputs": {

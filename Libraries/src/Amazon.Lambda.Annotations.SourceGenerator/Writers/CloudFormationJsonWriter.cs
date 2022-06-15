@@ -703,9 +703,21 @@ namespace Amazon.Lambda.Annotations.SourceGenerator.Writers
 
 
 
-            WriteOrRemoveAsJson($"{methodPath}.Pattern", eventBridgeRuleSerializable.EventPattern.ToString());
+            WriteOrRemove($"{methodPath}.Pattern", eventBridgeRuleSerializable.EventPattern);
 
             return eventName;
+        }
+
+        private void WriteOrRemove(string path, JObject eventPattern)
+        {
+            if (eventPattern != default)
+            {
+                _jsonWriter.SetToken(path, eventPattern);
+            }
+            else
+            {
+                _jsonWriter.RemoveToken(path);
+            }
         }
     }
 }

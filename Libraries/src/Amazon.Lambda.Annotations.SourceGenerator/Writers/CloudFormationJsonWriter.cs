@@ -161,6 +161,7 @@ namespace Amazon.Lambda.Annotations.SourceGenerator.Writers
                     case AttributeModel<EventBridgeRuleAttribute> eventBridgeModel:
                         IEventBridgeRuleSerializable eventBridgeRule = EventBridgeRuleModelBuilder.Build(lambdaFunction, eventBridgeModel.Data);
                         eventName = ProcessEventBridgeRuleAttribute(lambdaFunction, eventBridgeRule);
+                        currentSyncedEvents.Add(eventName);
                         break;
                 }
             }
@@ -695,9 +696,8 @@ namespace Amazon.Lambda.Annotations.SourceGenerator.Writers
         {
             string handle = "EventBridgeRule";
 
-            var eventName = $"{lambdaFunction.Name}{handle}";
             var eventPath = $"Resources.{lambdaFunction.Name}.Properties.Events";
-            var methodPath = $"{eventPath}.{eventName}";
+            var methodPath = $"{eventPath}.{handle}";
 
             _jsonWriter.SetToken($"{methodPath}.Type", "EventBridgeRule");
 
@@ -707,7 +707,7 @@ namespace Amazon.Lambda.Annotations.SourceGenerator.Writers
 
             WriteOrRemove($"{serverlessPropertiesPath}.Pattern", eventBridgeRuleSerializable.EventPattern);
 
-            return eventName;
+            return handle;
         }
 
         private void WriteOrRemove(string path, JObject eventPattern)

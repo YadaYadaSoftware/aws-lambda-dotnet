@@ -91,7 +91,10 @@
     "TestServerlessAppEventBridgeRuleFunctionsSampleEventHandlerGenerated": {
       "Type": "AWS::Serverless::Function",
       "Metadata": {
-        "Tool": "Amazon.Lambda.Annotations"
+        "Tool": "Amazon.Lambda.Annotations",
+        "SyncedEvents": [
+          "EventBridgeRule"
+        ]
       },
       "Properties": {
         "Runtime": "dotnet6",
@@ -104,7 +107,7 @@
         "PackageType": "Zip",
         "Handler": "TestServerlessApp::TestServerlessApp.EventBridgeRuleFunctions_SampleEventHandler_Generated::SampleEventHandler",
         "Events": {
-          "TestServerlessAppEventBridgeRuleFunctionsSampleEventHandlerGeneratedEventBridgeRule": {
+          "EventBridgeRule": {
             "Type": "EventBridgeRule",
             "Properties": {
               "Pattern": {
@@ -342,9 +345,7 @@
       "Properties": {
         "FifoQueue": true,
         "QueueName": {
-          "Fn::Sub": [
-            "${AWS::Stack}MyFifoQueueWithStackEmbedded.fifo"
-          ]
+          "Fn::Sub": "${AWS::Stack}MyFifoQueueWithStackEmbedded.fifo"
         }
       }
     },

@@ -19,23 +19,6 @@ namespace Amazon.Lambda.Annotations.SourceGenerator.Models
                 EventPattern = pattern
             };
         }
-        //private static JObject UpdatePatternWithFnSubs(JObject pattern)
-        //{
-        //    switch (pattern.Type)
-        //    {
-        //        case JTokenType.Object:
-        //            foreach (JProperty jProperty in pattern.Properties())
-        //            {
-        //                UpdatePatternWithFnSubs(jProperty);
-        //            }
-        //        case JTokenType.Array:
-        //            foreach (var jArray in pattern.Values<JArray>())
-        //            {
-                        
-        //            }
-        //    }
-        //    return pattern;
-        //}
 
         static void UpdatePatternWithFnSubs(JToken node)
         {

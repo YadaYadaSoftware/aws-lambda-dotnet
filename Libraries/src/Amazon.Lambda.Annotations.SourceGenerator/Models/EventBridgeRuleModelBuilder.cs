@@ -10,7 +10,8 @@ namespace Amazon.Lambda.Annotations.SourceGenerator.Models
         {
             return new EventBridgeRuleModel()
             {
-                EventPattern = data.EventPattern
+                EventPattern = data.EventPattern,
+                EventPatternSources = data.EventPatternSources
             };
         }
     }

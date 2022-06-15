@@ -7,5 +7,6 @@ namespace Amazon.Lambda.Annotations.SourceGenerator.Models
     public class EventBridgeRuleModel : IEventBridgeRuleSerializable
     {
         public string EventPattern { get; set; }
+        public string[] EventPatternSources { get; set; }
     }
 }

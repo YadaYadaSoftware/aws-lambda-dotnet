@@ -23,6 +23,12 @@ namespace Amazon.Lambda.Annotations.SourceGenerator.Models.Attributes
                     case nameof(IEventBridgeRule.EventPattern):
                         data.EventPattern = attNamedArgument.Value.Value.ToString();
                         break;
+                    case nameof(IEventBridgeRule.EventPatternSources):
+                        if (attNamedArgument.Value.Values.Any())
+                        {
+                            data.EventPatternSources = attNamedArgument.Value.Values.Select(_ => _.Value.ToString()).ToArray();
+                        }
+                        break;
                     default:
                         throw new NotSupportedException(attNamedArgument.Key);
                 }

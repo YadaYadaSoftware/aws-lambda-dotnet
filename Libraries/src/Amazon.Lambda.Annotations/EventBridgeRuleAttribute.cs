@@ -8,5 +8,6 @@ namespace Amazon.Lambda.Annotations
     public class EventBridgeRuleAttribute : Attribute, IEventBridgeRule
     {
         public string EventPattern { get; set; }
+        public string[] EventPatternSources { get; set; } = new string[] { };
     }
 }

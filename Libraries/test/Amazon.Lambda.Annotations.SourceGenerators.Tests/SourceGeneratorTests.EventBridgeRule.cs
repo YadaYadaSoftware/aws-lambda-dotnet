@@ -25,8 +25,8 @@ namespace Amazon.Lambda.Annotations.SourceGenerators.Tests
             var expectedTemplateContent = File.ReadAllText(Path.Combine("Snapshots", "ServerlessTemplates", "eventbridgerule.template")).ToEnvironmentLineEndings();
             var expectedgeneratedSampleEventGenerated = File.ReadAllText(Path.Combine("Snapshots", generatedSampleEventGenerated)).ToEnvironmentLineEndings();
 
-            //try
-            //{
+            try
+            {
                 await new VerifyCS.Test
                 {
                     TestState =
@@ -53,12 +53,13 @@ namespace Amazon.Lambda.Annotations.SourceGenerators.Tests
                         }
                     }
                 }.RunAsync();
-            //}
-            //finally
-            //{
-            //    var actualTemplateContent = File.ReadAllText(Path.Combine("TestServerlessApp", "serverless.template"));
-            //    Assert.Equal(expectedTemplateContent, actualTemplateContent);
-            //}
+            }
+            finally
+            {
+                var actualTemplateContent = File.ReadAllText(Path.Combine("TestServerlessApp", "serverless.template"));
+                Assert.Equal(expectedTemplateContent, actualTemplateContent);
+            }
         }
     }
 }
+

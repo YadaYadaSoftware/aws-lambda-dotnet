@@ -701,9 +701,11 @@ namespace Amazon.Lambda.Annotations.SourceGenerator.Writers
 
             _jsonWriter.SetToken($"{methodPath}.Type", "EventBridgeRule");
 
+            var serverlessPropertiesPath = $"{methodPath}.Properties";
 
 
-            WriteOrRemove($"{methodPath}.Pattern", eventBridgeRuleSerializable.EventPattern);
+
+            WriteOrRemove($"{serverlessPropertiesPath}.Pattern", eventBridgeRuleSerializable.EventPattern);
 
             return eventName;
         }

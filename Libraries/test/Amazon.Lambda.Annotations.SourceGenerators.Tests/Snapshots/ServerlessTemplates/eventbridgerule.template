@@ -20,11 +20,13 @@
         "Events": {
           "TestServerlessAppEventBridgeRuleFunctionsSampleEventHandlerGeneratedEventBridgeRule": {
             "Type": "EventBridgeRule",
-            "Pattern": {
-              "source": [
-                "aws.ec2",
-                "aws.fargate"
-              ]
+            "Properties": {
+              "Pattern": {
+                "source": [
+                  "aws.ec2",
+                  "aws.fargate"
+                ]
+              }
             }
           }
         }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Newtonsoft.Json.Linq;
 
 namespace Amazon.Lambda.Annotations.SourceGenerator.Models
 {
@@ -10,8 +11,7 @@ namespace Amazon.Lambda.Annotations.SourceGenerator.Models
         {
             return new EventBridgeRuleModel()
             {
-                EventPattern = data.EventPattern,
-                EventPatternSources = data.EventPatternSources
+                EventPattern = JObject.Parse(data.EventPattern)
             };
         }
     }

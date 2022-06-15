@@ -702,7 +702,8 @@ namespace Amazon.Lambda.Annotations.SourceGenerator.Writers
             _jsonWriter.SetToken($"{methodPath}.Type", "EventBridgeRule");
 
 
-            WriteOrRemove($"{methodPath}.Pattern", eventBridgeRuleSerializable.EventPattern, string.Empty);
+
+            WriteOrRemoveAsJson($"{methodPath}.Pattern", eventBridgeRuleSerializable.EventPattern.ToString());
 
             return eventName;
         }

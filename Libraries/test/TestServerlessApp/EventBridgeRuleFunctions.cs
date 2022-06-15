@@ -13,7 +13,7 @@ namespace TestServerlessApp
     {
 
         [LambdaFunction]
-        [EventBridgeRule(EventPattern = "MyPattern")]
+        [EventBridgeRule(EventPattern = "{'source': ['aws.ec2', 'aws.fargate']}")]
         public Task SampleEventHandler(CloudWatchEvent<SampleEvent> input, ILambdaContext context)
         {
             return Task.CompletedTask;

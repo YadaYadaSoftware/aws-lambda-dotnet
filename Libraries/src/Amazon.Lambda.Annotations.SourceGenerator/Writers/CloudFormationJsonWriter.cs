@@ -159,7 +159,7 @@ namespace Amazon.Lambda.Annotations.SourceGenerator.Writers
                         }
                         break;
                     case AttributeModel<EventBridgeRuleAttribute> eventBridgeModel:
-                        var eventBridgeRule = EventBridgeRuleModelBuilder.Build(lambdaFunction, eventBridgeModel.Data);
+                        IEventBridgeRuleSerializable eventBridgeRule = EventBridgeRuleModelBuilder.Build(lambdaFunction, eventBridgeModel.Data);
                         eventName = ProcessEventBridgeRuleAttribute(lambdaFunction, eventBridgeRule);
                         break;
                 }

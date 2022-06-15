@@ -25,7 +25,5 @@ namespace Amazon.Lambda.Annotations
         /// AWS CloudFormation compatibility: This property is passed directly to the EventPattern property of an AWS::Events::Rule resource.
         /// </summary>
         string EventPattern { get; set; }
-
-        string[] EventPatternSources { get; set; }
     }
 }

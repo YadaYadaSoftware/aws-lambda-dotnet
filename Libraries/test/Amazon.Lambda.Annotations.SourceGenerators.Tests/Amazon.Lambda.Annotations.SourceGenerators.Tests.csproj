@@ -42,10 +42,13 @@
         </Content>
         <Content Remove="..\..\src\Amazon.Lambda.Annotations\obj\**" />
 		<Content Remove="..\..\src\Amazon.Lambda.Annotations\bin\**" />
+		<EmbeddedResource Remove="Models\Attributes\**" />
+		<None Remove="Models\Attributes\**" />
 		<Content Remove="..\..\src\Amazon.Lambda.Annotations\Amazon.Lambda.Annotations.csproj" />
     </ItemGroup>
 
     <ItemGroup>
+      <Compile Remove="Models\Attributes\**" />
       <Compile Remove="Snapshots\**" />
     </ItemGroup>
 
@@ -75,10 +78,6 @@
       <ProjectReference Include="..\..\src\Amazon.Lambda.Core\Amazon.Lambda.Core.csproj" AdditionalProperties="TargetFramework=netstandard2.0" />
       <ProjectReference Include="..\..\src\Amazon.Lambda.Serialization.SystemTextJson\Amazon.Lambda.Serialization.SystemTextJson.csproj" />
       <ProjectReference Include="..\..\src\Amazon.Lambda.SQSEvents\Amazon.Lambda.SQSEvents.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Models\Attributes\" />
     </ItemGroup>
 
 

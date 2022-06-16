@@ -68,7 +68,7 @@ public class Functions
 }
 ```
 
-and in your template would be:
+and place in your template:
 
 ```
 
@@ -79,6 +79,8 @@ and in your template would be:
   },
 
 ```
+
+The above two examples when used together will the use the value of LambdaRoleParameter as the role during deployment.
 
 ## Source Generator
 

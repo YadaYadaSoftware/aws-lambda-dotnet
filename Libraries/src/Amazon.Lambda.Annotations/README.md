@@ -53,6 +53,8 @@ public class Functions
 }
 ```
 
+## Using References To Other Resources and Parameters in the template
+
 To use a reference to a Resource or Parameter in the template, prefix the value with `@`.  Example
 ```csharp
 public class Functions

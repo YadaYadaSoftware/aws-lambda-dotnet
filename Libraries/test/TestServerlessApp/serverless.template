@@ -538,9 +538,7 @@
       "Properties": {
         "MemorySize": 256,
         "Timeout": 30,
-        "Policies": [
-          "AWSLambdaBasicExecutionRole"
-        ],
+        "Role": "arn:aws:iam::76803399999:role/service-role/Abc-role",
         "PackageType": "Image",
         "ImageUri": ".",
         "ImageConfig": {

@@ -187,9 +187,11 @@ namespace Amazon.Lambda.Annotations.SourceGenerators.Tests
             var expectedTemplateContent = File.ReadAllText(Path.Combine("Snapshots", "ServerlessTemplates", "subnamespace.template")).ToEnvironmentLineEndings();
             var expectedSubNamespaceGenerated = File.ReadAllText(Path.Combine("Snapshots", "Functions_ToUpper_Generated.g.cs")).ToEnvironmentLineEndings();
 
-            await new VerifyCS.Test
+            try
             {
-                TestState =
+                await new VerifyCS.Test
+                {
+                    TestState =
                 {
                     Sources =
                     {
@@ -211,10 +213,16 @@ namespace Amazon.Lambda.Annotations.SourceGenerators.Tests
                         new DiagnosticResult("AWSLambda0103", DiagnosticSeverity.Info).WithArguments($"TestServerlessApp{Path.DirectorySeparatorChar}serverless.template", expectedTemplateContent)
                     }
                 }
-            }.RunAsync();
+                }.RunAsync();
 
-            var actualTemplateContent = File.ReadAllText(Path.Combine("TestServerlessApp", "serverless.template"));
-            Assert.Equal(expectedTemplateContent, actualTemplateContent);
+            }
+            catch (Exception)
+            {
+
+                var actualTemplateContent = File.ReadAllText(Path.Combine("TestServerlessApp", "serverless.template"));
+                Assert.Equal(expectedTemplateContent, actualTemplateContent);
+                throw;
+            }
         }
     }
 }

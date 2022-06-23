@@ -37,5 +37,12 @@ namespace Amazon.Lambda.Annotations
         /// For more information, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-package.html">here</a>
         /// </summary>
         public LambdaPackageType PackageType { get; set; }
+
+        /// <summary>
+        /// Command delimited array of SubnetIds for the VpcConfig
+        /// </summary>
+        public string Subnets { get; set; }
+
+        // ATTRIBUTE: to add a new attribute to the template, add it here
     }
 }

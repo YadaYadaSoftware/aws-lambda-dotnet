@@ -56,5 +56,13 @@ namespace Amazon.Lambda.Annotations.SourceGenerator.Models
         /// The assembly version of the Amazon.Lambda.Annotations.SourceGenerator package.
         /// </summary>
         string SourceGeneratorVersion { get; set; }
+
+        /// <summary>
+        /// Command delimited array of SubnetIds for the VpcConfig
+        /// </summary>
+        string Subnets { get; }
+
+        // ATTRIBUTE: to add a new attribute to the template, add it here
+
     }
 }

@@ -59,5 +59,10 @@ namespace Amazon.Lambda.Annotations.SourceGenerator.Models
 
         /// <inheritdoc />
         public string SourceGeneratorVersion { get; set; }
+
+        public string Subnets => LambdaMethod.LambdaFunctionAttribute.Data.Subnets;
+
+        // ATTRIBUTE: to add a new attribute to the template, add it here
+
     }
 }

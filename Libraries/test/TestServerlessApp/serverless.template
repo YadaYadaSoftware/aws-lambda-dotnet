@@ -56,39 +56,6 @@
         }
       }
     },
-    "SimpleCalculatorAdd": {
-      "Type": "AWS::Serverless::Function",
-      "Metadata": {
-        "Tool": "Amazon.Lambda.Annotations",
-        "SyncedEvents": [
-          "RootGet"
-        ]
-      },
-      "Properties": {
-        "MemorySize": 256,
-        "Timeout": 30,
-        "Role": null,
-        "Policies": [
-          "AWSLambdaBasicExecutionRole"
-        ],
-        "Events": {
-          "RootGet": {
-            "Type": "Api",
-            "Properties": {
-              "Path": "/SimpleCalculator/Add",
-              "Method": "GET"
-            }
-          }
-        },
-        "PackageType": "Image",
-        "ImageUri": ".",
-        "ImageConfig": {
-          "Command": [
-            "TestServerlessApp::TestServerlessApp.SimpleCalculator_Add_Generated::Add"
-          ]
-        }
-      }
-    },
     "SimpleCalculatorSubtract": {
       "Type": "AWS::Serverless::Function",
       "Metadata": {
@@ -365,6 +332,38 @@
           "Command": [
             "TestServerlessApp::TestServerlessApp.Sub1.Functions_ToUpper_Generated::ToUpper"
           ]
+        }
+      }
+    },
+    "SimpleCalculatorAdd": {
+      "Type": "AWS::Serverless::Function",
+      "Metadata": {
+        "Tool": "Amazon.Lambda.Annotations",
+        "SyncedEvents": [
+          "RootGet"
+        ]
+      },
+      "Properties": {
+        "MemorySize": 256,
+        "Timeout": 30,
+        "Policies": [
+          "AWSLambdaBasicExecutionRole"
+        ],
+        "PackageType": "Image",
+        "ImageUri": ".",
+        "ImageConfig": {
+          "Command": [
+            "TestServerlessApp::TestServerlessApp.SimpleCalculator_Add_Generated::Add"
+          ]
+        },
+        "Events": {
+          "RootGet": {
+            "Type": "Api",
+            "Properties": {
+              "Path": "/SimpleCalculator/Add",
+              "Method": "GET"
+            }
+          }
         }
       }
     }

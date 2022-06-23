@@ -98,6 +98,16 @@ namespace Amazon.Lambda.Annotations.SourceGenerator.Writers
                 _jsonWriter.RemoveToken($"{propertiesPath}.Role");
             }
 
+            if (!string.IsNullOrEmpty(lambdaFunction.Subnets))
+            {
+                var subnetArray = lambdaFunction.Subnets.Split(',').Select(x => GetValueOrRef(x.Trim()));
+                _jsonWriter.SetToken($"{propertiesPath}.VpcConfig.SubnetIds", new JArray(subnetArray));
+
+            }
+
+            // ATTRIBUTE: to add a new attribute to the template, add it here
+
+
             ProcessPackageTypeProperty(lambdaFunction, propertiesPath, relativeProjectUri);
         }
 

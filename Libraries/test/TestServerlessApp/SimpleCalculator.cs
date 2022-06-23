@@ -24,7 +24,7 @@ namespace TestServerlessApp
             this._simpleCalculatorService = simpleCalculatorService;
         }
 
-        [LambdaFunction(Name = "SimpleCalculatorAdd", PackageType = LambdaPackageType.Image)]
+        [LambdaFunction(Name = "SimpleCalculatorAdd", PackageType = LambdaPackageType.Image, Subnets = "Subnet1,Subnet2")]
         [RestApi(LambdaHttpMethod.Get, "/SimpleCalculator/Add")]
         public int Add([FromQuery]int x, [FromQuery]int y)
         {

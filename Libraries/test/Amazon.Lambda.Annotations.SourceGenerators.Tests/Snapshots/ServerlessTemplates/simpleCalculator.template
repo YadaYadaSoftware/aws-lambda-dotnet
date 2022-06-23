@@ -16,6 +16,12 @@
         "Policies": [
           "AWSLambdaBasicExecutionRole"
         ],
+        "VpcConfig": {
+          "SubnetIds": [
+            "Subnet1",
+            "Subnet2"
+          ]
+        },
         "PackageType": "Image",
         "ImageUri": ".",
         "ImageConfig": {

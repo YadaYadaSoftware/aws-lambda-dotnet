@@ -42,6 +42,15 @@ namespace Amazon.Lambda.Annotations.SourceGenerator.Models.Attributes
                 {
                     data.PackageType = (LambdaPackageType)pair.Value.Value;
                 }
+
+                if (pair.Key == nameof(data.Subnets) && pair.Value.Value is string subnets)
+                {
+                    data.Subnets = pair.Value.Value.ToString();
+                }
+
+                // ATTRIBUTE: to add a new attribute to the template, add it here
+
+
             }
 
             return data;

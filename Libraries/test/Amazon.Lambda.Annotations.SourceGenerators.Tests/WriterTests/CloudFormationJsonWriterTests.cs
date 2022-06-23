@@ -421,6 +421,7 @@ namespace Amazon.Lambda.Annotations.SourceGenerators.Tests.WriterTests
             public string Policies { get; set; }
             public IList<AttributeModel> Attributes { get; set; } = new List<AttributeModel>();
             public string SourceGeneratorVersion { get; set; }
+            public string Subnets { get; set; }
             public LambdaPackageType PackageType { get; set; } = LambdaPackageType.Zip;
         }
     }

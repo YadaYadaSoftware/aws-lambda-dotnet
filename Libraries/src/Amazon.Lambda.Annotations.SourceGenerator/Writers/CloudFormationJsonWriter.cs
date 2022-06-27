@@ -158,6 +158,11 @@ namespace Amazon.Lambda.Annotations.SourceGenerator.Writers
                             _processedResources.Add(queueLogicalId);
                         }
                         break;
+                    case AttributeModel<EventBridgeRuleAttribute> eventBridgeModel:
+                        IEventBridgeRuleSerializable eventBridgeRule = EventBridgeRuleModelBuilder.Build(lambdaFunction, eventBridgeModel.Data);
+                        eventName = ProcessEventBridgeRuleAttribute(lambdaFunction, eventBridgeRule);
+                        currentSyncedEvents.Add(eventName);
+                        break;
                 }
             }
 
@@ -651,7 +656,7 @@ namespace Amazon.Lambda.Annotations.SourceGenerator.Writers
                 }
                 else
                 {
-                        _jsonWriter.RemoveToken(filterCriteriaPropertiesPath);
+                    _jsonWriter.RemoveToken(filterCriteriaPropertiesPath);
                 }
 
             }
@@ -672,6 +677,35 @@ namespace Amazon.Lambda.Annotations.SourceGenerator.Writers
 
 
             return eventHandle;
+        }
+        private string ProcessEventBridgeRuleAttribute(ILambdaFunctionSerializable lambdaFunction, IEventBridgeRuleSerializable eventBridgeRuleSerializable)
+        {
+            string handle = "EventBridgeRule";
+
+            var eventPath = $"Resources.{lambdaFunction.Name}.Properties.Events";
+            var methodPath = $"{eventPath}.{handle}";
+
+            _jsonWriter.SetToken($"{methodPath}.Type", "EventBridgeRule");
+
+            var serverlessPropertiesPath = $"{methodPath}.Properties";
+
+
+
+            WriteOrRemove($"{serverlessPropertiesPath}.Pattern", eventBridgeRuleSerializable.EventPattern);
+
+            return handle;
+        }
+
+        private void WriteOrRemove(string path, JObject eventPattern)
+        {
+            if (eventPattern != default)
+            {
+                _jsonWriter.SetToken(path, eventPattern);
+            }
+            else
+            {
+                _jsonWriter.RemoveToken(path);
+            }
         }
     }
 }

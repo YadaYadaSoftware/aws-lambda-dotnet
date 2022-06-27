@@ -9,7 +9,7 @@
         <projectUrl>https://github.com/aws/aws-lambda-dotnet</projectUrl>
         <license type="expression">Apache-2.0</license>
         <dependencies>
-            <group targetFramework=".netstandard2.0"/>
+            <group targetFramework="netstandard2.0"/>
         </dependencies>
 		<icon>images\icon.png</icon>
 		<readme>docs\README.md</readme>

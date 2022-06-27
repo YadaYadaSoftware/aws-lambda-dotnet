@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Immutable;
 using Amazon.Lambda.APIGatewayEvents;
+using Amazon.Lambda.CloudWatchEvents;
 using Amazon.Lambda.Core;
 using Amazon.Lambda.Serialization.SystemTextJson;
 using Amazon.Lambda.SQSEvents;
@@ -30,7 +31,8 @@ namespace Amazon.Lambda.Annotations.SourceGenerators.Tests
                         .AddMetadataReference(projectId, MetadataReference.CreateFromFile(typeof(ServiceProvider).Assembly.Location))
                         .AddMetadataReference(projectId, MetadataReference.CreateFromFile(typeof(RestApiAttribute).Assembly.Location))
                         .AddMetadataReference(projectId, MetadataReference.CreateFromFile(typeof(DefaultLambdaJsonSerializer).Assembly.Location))
-                        .AddMetadataReference(projectId, MetadataReference.CreateFromFile(typeof(SQSEvent.SQSMessage).Assembly.Location));
+                        .AddMetadataReference(projectId, MetadataReference.CreateFromFile(typeof(SQSEvent.SQSMessage).Assembly.Location))
+                        .AddMetadataReference(projectId, MetadataReference.CreateFromFile(typeof(CloudWatchEvent<>).Assembly.Location));
                 });
             }
 
@@ -56,6 +58,8 @@ namespace Amazon.Lambda.Annotations.SourceGenerators.Tests
             {
                 return ((CSharpParseOptions)base.CreateParseOptions()).WithLanguageVersion(LanguageVersion);
             }
+
+            
         }
     }
 }

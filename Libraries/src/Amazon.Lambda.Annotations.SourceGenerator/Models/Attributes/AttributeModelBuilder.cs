@@ -79,6 +79,15 @@ namespace Amazon.Lambda.Annotations.SourceGenerator.Models.Attributes
                     Type = TypeModelBuilder.Build(att.AttributeClass, context)
                 };
             }
+            else if (att.AttributeClass.Equals(context.Compilation.GetTypeByMetadataName(TypeFullNames.EventBridgeRuleAttribute), SymbolEqualityComparer.Default))
+            {
+                var data = EventBridgeRuleAttributeBuilder.Build(att);
+                model = new AttributeModel<EventBridgeRuleAttribute>
+                {
+                    Data = data,
+                    Type = TypeModelBuilder.Build(att.AttributeClass, context)
+                };
+            }
             else
             {
                 model = new AttributeModel

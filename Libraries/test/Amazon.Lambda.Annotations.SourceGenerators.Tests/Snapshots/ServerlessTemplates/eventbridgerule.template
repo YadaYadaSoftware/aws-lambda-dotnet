@@ -1,0 +1,39 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Transform": "AWS::Serverless-2016-10-31",
+  "Resources": {
+    "TestServerlessAppEventBridgeRuleFunctionsSampleEventHandlerGenerated": {
+      "Type": "AWS::Serverless::Function",
+      "Metadata": {
+        "Tool": "Amazon.Lambda.Annotations",
+        "SyncedEvents": [
+          "EventBridgeRule"
+        ]
+      },
+      "Properties": {
+        "Runtime": "dotnet6",
+        "CodeUri": ".",
+        "MemorySize": 256,
+        "Timeout": 30,
+        "Policies": [
+          "AWSLambdaBasicExecutionRole"
+        ],
+        "PackageType": "Zip",
+        "Handler": "TestProject::TestServerlessApp.EventBridgeRuleFunctions_SampleEventHandler_Generated::SampleEventHandler",
+        "Events": {
+          "EventBridgeRule": {
+            "Type": "EventBridgeRule",
+            "Properties": {
+              "Pattern": {
+                "source": [
+                  "aws.ec2",
+                  "aws.fargate"
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -39,5 +39,6 @@ namespace Amazon.Lambda.Annotations
         public LambdaPackageType PackageType { get; set; }
 
         public string LogDeletionPolicy { get; set; }
+        public uint LogRetentionInDays { get; set; }
     }
 }

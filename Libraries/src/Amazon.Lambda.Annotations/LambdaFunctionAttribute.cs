@@ -37,5 +37,7 @@ namespace Amazon.Lambda.Annotations
         /// For more information, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-package.html">here</a>
         /// </summary>
         public LambdaPackageType PackageType { get; set; }
+
+        public string LogDeletionPolicy { get; set; }
     }
 }

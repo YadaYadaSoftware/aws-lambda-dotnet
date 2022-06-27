@@ -19,7 +19,7 @@
           "AWSLambdaBasicExecutionRole"
         ],
         "PackageType": "Zip",
-        "Handler": "TestProject::TestServerlessApp.Messaging_MessageHandlerForPreExistingQueue_Generated::MessageHandlerForPreExistingQueue",
+        "Handler": "TestServerlessApp::TestServerlessApp.Messaging_MessageHandlerForPreExistingQueue_Generated::MessageHandlerForPreExistingQueue",
         "Events": {
           "Sqs": {
             "Type": "SQS",
@@ -51,7 +51,7 @@
           "AWSLambdaBasicExecutionRole"
         ],
         "PackageType": "Zip",
-        "Handler": "TestProject::TestServerlessApp.Messaging_MessageHandlerForNewQueue_Generated::MessageHandlerForNewQueue",
+        "Handler": "TestServerlessApp::TestServerlessApp.Messaging_MessageHandlerForNewQueue_Generated::MessageHandlerForNewQueue",
         "Events": {
           "Sqs": {
             "Type": "SQS",
@@ -136,7 +136,7 @@
           "AWSLambdaBasicExecutionRole"
         ],
         "PackageType": "Zip",
-        "Handler": "TestProject::TestServerlessApp.Messaging_MessageHandlerForNewFifoQueueUsingFnSubForQueueName_Generated::MessageHandlerForNewFifoQueueUsingFnSubForQueueName",
+        "Handler": "TestServerlessApp::TestServerlessApp.Messaging_MessageHandlerForNewFifoQueueUsingFnSubForQueueName_Generated::MessageHandlerForNewFifoQueueUsingFnSubForQueueName",
         "Events": {
           "Sqs": {
             "Type": "SQS",
@@ -184,7 +184,7 @@
           "AWSLambdaBasicExecutionRole"
         ],
         "PackageType": "Zip",
-        "Handler": "TestProject::TestServerlessApp.Messaging_MessageHandlerForNewFifoQueueWithoutAQueueName_Generated::MessageHandlerForNewFifoQueueWithoutAQueueName",
+        "Handler": "TestServerlessApp::TestServerlessApp.Messaging_MessageHandlerForNewFifoQueueWithoutAQueueName_Generated::MessageHandlerForNewFifoQueueWithoutAQueueName",
         "Events": {
           "Sqs": {
             "Type": "SQS",
@@ -208,6 +208,346 @@
       "Properties": {
         "FifoQueue": true,
         "QueueName": "TestServerlessAppMessagingMessageHandlerForNewFifoQueueWithoutAQueueNameGeneratedQueue.fifo"
+      }
+    },
+    "GreeterSayHello": {
+      "Type": "AWS::Serverless::Function",
+      "Metadata": {
+        "Tool": "Amazon.Lambda.Annotations",
+        "SyncedEvents": [
+          "RootGet"
+        ]
+      },
+      "Properties": {
+        "MemorySize": 1024,
+        "Timeout": 30,
+        "Policies": [
+          "AWSLambdaBasicExecutionRole"
+        ],
+        "PackageType": "Image",
+        "ImageUri": ".",
+        "ImageConfig": {
+          "Command": [
+            "TestServerlessApp::TestServerlessApp.Greeter_SayHello_Generated::SayHello"
+          ]
+        },
+        "Events": {
+          "RootGet": {
+            "Type": "HttpApi",
+            "Properties": {
+              "Path": "/Greeter/SayHello",
+              "Method": "GET",
+              "PayloadFormatVersion": "1.0"
+            }
+          }
+        }
+      }
+    },
+    "GreeterSayHelloAsync": {
+      "Type": "AWS::Serverless::Function",
+      "Metadata": {
+        "Tool": "Amazon.Lambda.Annotations",
+        "SyncedEvents": [
+          "RootGet"
+        ]
+      },
+      "Properties": {
+        "MemorySize": 256,
+        "Timeout": 50,
+        "Policies": [
+          "AWSLambdaBasicExecutionRole"
+        ],
+        "PackageType": "Image",
+        "ImageUri": ".",
+        "ImageConfig": {
+          "Command": [
+            "TestServerlessApp::TestServerlessApp.Greeter_SayHelloAsync_Generated::SayHelloAsync"
+          ]
+        },
+        "Events": {
+          "RootGet": {
+            "Type": "HttpApi",
+            "Properties": {
+              "Path": "/Greeter/SayHelloAsync",
+              "Method": "GET",
+              "PayloadFormatVersion": "1.0"
+            }
+          }
+        }
+      }
+    },
+    "TestServerlessAppComplexCalculatorAddGenerated": {
+      "Type": "AWS::Serverless::Function",
+      "Metadata": {
+        "Tool": "Amazon.Lambda.Annotations",
+        "SyncedEvents": [
+          "RootPost"
+        ]
+      },
+      "Properties": {
+        "MemorySize": 256,
+        "Timeout": 30,
+        "Policies": [
+          "AWSLambdaBasicExecutionRole"
+        ],
+        "PackageType": "Image",
+        "ImageUri": ".",
+        "ImageConfig": {
+          "Command": [
+            "TestServerlessApp::TestServerlessApp.ComplexCalculator_Add_Generated::Add"
+          ]
+        },
+        "Events": {
+          "RootPost": {
+            "Type": "HttpApi",
+            "Properties": {
+              "Path": "/ComplexCalculator/Add",
+              "Method": "POST",
+              "PayloadFormatVersion": "2.0"
+            }
+          }
+        }
+      }
+    },
+    "TestServerlessAppComplexCalculatorSubtractGenerated": {
+      "Type": "AWS::Serverless::Function",
+      "Metadata": {
+        "Tool": "Amazon.Lambda.Annotations",
+        "SyncedEvents": [
+          "RootPost"
+        ]
+      },
+      "Properties": {
+        "MemorySize": 256,
+        "Timeout": 30,
+        "Policies": [
+          "AWSLambdaBasicExecutionRole"
+        ],
+        "PackageType": "Image",
+        "ImageUri": ".",
+        "ImageConfig": {
+          "Command": [
+            "TestServerlessApp::TestServerlessApp.ComplexCalculator_Subtract_Generated::Subtract"
+          ]
+        },
+        "Events": {
+          "RootPost": {
+            "Type": "HttpApi",
+            "Properties": {
+              "Path": "/ComplexCalculator/Subtract",
+              "Method": "POST",
+              "PayloadFormatVersion": "2.0"
+            }
+          }
+        }
+      }
+    },
+    "SimpleCalculatorAdd": {
+      "Type": "AWS::Serverless::Function",
+      "Metadata": {
+        "Tool": "Amazon.Lambda.Annotations",
+        "SyncedEvents": [
+          "RootGet"
+        ]
+      },
+      "Properties": {
+        "MemorySize": 256,
+        "Timeout": 30,
+        "Policies": [
+          "AWSLambdaBasicExecutionRole"
+        ],
+        "PackageType": "Image",
+        "ImageUri": ".",
+        "ImageConfig": {
+          "Command": [
+            "TestServerlessApp::TestServerlessApp.SimpleCalculator_Add_Generated::Add"
+          ]
+        },
+        "Events": {
+          "RootGet": {
+            "Type": "Api",
+            "Properties": {
+              "Path": "/SimpleCalculator/Add",
+              "Method": "GET"
+            }
+          }
+        }
+      }
+    },
+    "SimpleCalculatorSubtract": {
+      "Type": "AWS::Serverless::Function",
+      "Metadata": {
+        "Tool": "Amazon.Lambda.Annotations",
+        "SyncedEvents": [
+          "RootGet"
+        ]
+      },
+      "Properties": {
+        "MemorySize": 256,
+        "Timeout": 30,
+        "Policies": [
+          "AWSLambdaBasicExecutionRole"
+        ],
+        "PackageType": "Image",
+        "ImageUri": ".",
+        "ImageConfig": {
+          "Command": [
+            "TestServerlessApp::TestServerlessApp.SimpleCalculator_Subtract_Generated::Subtract"
+          ]
+        },
+        "Events": {
+          "RootGet": {
+            "Type": "Api",
+            "Properties": {
+              "Path": "/SimpleCalculator/Subtract",
+              "Method": "GET"
+            }
+          }
+        }
+      }
+    },
+    "SimpleCalculatorMultiply": {
+      "Type": "AWS::Serverless::Function",
+      "Metadata": {
+        "Tool": "Amazon.Lambda.Annotations",
+        "SyncedEvents": [
+          "RootGet"
+        ]
+      },
+      "Properties": {
+        "MemorySize": 256,
+        "Timeout": 30,
+        "Policies": [
+          "AWSLambdaBasicExecutionRole"
+        ],
+        "PackageType": "Image",
+        "ImageUri": ".",
+        "ImageConfig": {
+          "Command": [
+            "TestServerlessApp::TestServerlessApp.SimpleCalculator_Multiply_Generated::Multiply"
+          ]
+        },
+        "Events": {
+          "RootGet": {
+            "Type": "Api",
+            "Properties": {
+              "Path": "/SimpleCalculator/Multiply/{x}/{y}",
+              "Method": "GET"
+            }
+          }
+        }
+      }
+    },
+    "SimpleCalculatorDivideAsync": {
+      "Type": "AWS::Serverless::Function",
+      "Metadata": {
+        "Tool": "Amazon.Lambda.Annotations",
+        "SyncedEvents": [
+          "RootGet"
+        ]
+      },
+      "Properties": {
+        "MemorySize": 256,
+        "Timeout": 30,
+        "Policies": [
+          "AWSLambdaBasicExecutionRole"
+        ],
+        "PackageType": "Image",
+        "ImageUri": ".",
+        "ImageConfig": {
+          "Command": [
+            "TestServerlessApp::TestServerlessApp.SimpleCalculator_DivideAsync_Generated::DivideAsync"
+          ]
+        },
+        "Events": {
+          "RootGet": {
+            "Type": "Api",
+            "Properties": {
+              "Path": "/SimpleCalculator/DivideAsync/{x}/{y}",
+              "Method": "GET"
+            }
+          }
+        }
+      }
+    },
+    "PI": {
+      "Type": "AWS::Serverless::Function",
+      "Metadata": {
+        "Tool": "Amazon.Lambda.Annotations"
+      },
+      "Properties": {
+        "MemorySize": 256,
+        "Timeout": 30,
+        "Policies": [
+          "AWSLambdaBasicExecutionRole"
+        ],
+        "PackageType": "Image",
+        "ImageUri": ".",
+        "ImageConfig": {
+          "Command": [
+            "TestServerlessApp::TestServerlessApp.SimpleCalculator_Pi_Generated::Pi"
+          ]
+        }
+      }
+    },
+    "Random": {
+      "Type": "AWS::Serverless::Function",
+      "Metadata": {
+        "Tool": "Amazon.Lambda.Annotations"
+      },
+      "Properties": {
+        "MemorySize": 256,
+        "Timeout": 30,
+        "Policies": [
+          "AWSLambdaBasicExecutionRole"
+        ],
+        "PackageType": "Image",
+        "ImageUri": ".",
+        "ImageConfig": {
+          "Command": [
+            "TestServerlessApp::TestServerlessApp.SimpleCalculator_Random_Generated::Random"
+          ]
+        }
+      }
+    },
+    "Randoms": {
+      "Type": "AWS::Serverless::Function",
+      "Metadata": {
+        "Tool": "Amazon.Lambda.Annotations"
+      },
+      "Properties": {
+        "MemorySize": 256,
+        "Timeout": 30,
+        "Policies": [
+          "AWSLambdaBasicExecutionRole"
+        ],
+        "PackageType": "Image",
+        "ImageUri": ".",
+        "ImageConfig": {
+          "Command": [
+            "TestServerlessApp::TestServerlessApp.SimpleCalculator_Randoms_Generated::Randoms"
+          ]
+        }
+      }
+    },
+    "ToUpper": {
+      "Type": "AWS::Serverless::Function",
+      "Metadata": {
+        "Tool": "Amazon.Lambda.Annotations"
+      },
+      "Properties": {
+        "MemorySize": 256,
+        "Timeout": 30,
+        "Policies": [
+          "AWSLambdaBasicExecutionRole"
+        ],
+        "PackageType": "Image",
+        "ImageUri": ".",
+        "ImageConfig": {
+          "Command": [
+            "TestServerlessApp::TestServerlessApp.Sub1.Functions_ToUpper_Generated::ToUpper"
+          ]
+        }
       }
     }
   }

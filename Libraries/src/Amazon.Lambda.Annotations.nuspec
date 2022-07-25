@@ -13,6 +13,7 @@
         </dependencies>
 		<icon>images\icon.png</icon>
 		<readme>docs\README.md</readme>
+	    <repository type="git" url="https://github.com/hounddog22030/aws-lambda-dotnet.git" />
     </metadata>
 
     <files>

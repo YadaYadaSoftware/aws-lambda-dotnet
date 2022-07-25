@@ -16,7 +16,7 @@ jobs:
     - name: Get Branch Name
       run: echo "BRANCH_NAME=${GITHUB_REF##*/}" >> $GITHUB_ENV
     - name: Setup Version
-      run: echo "V=0.51.${{ github.run_number }}-$BRANCH_NAME" >> $GITHUB_ENV
+      run: echo "V=0.52.${{ github.run_number }}-$BRANCH_NAME" >> $GITHUB_ENV
     - name: Echo Version
       run: echo $V
     - name: Setup .NET 3.1

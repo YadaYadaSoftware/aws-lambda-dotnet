@@ -1,42 +1,54 @@
-name: .NET
+name: Source Generator CI2
 
 on:
+  workflow_dispatch:
   push:
-    branches: [ "master","feature/annotations-enchilada" ]
+    branches:
+      - feature/annotations-enchilada
   pull_request:
-    branches: [ "master"," feature/annotations-enchilada" ]
 
 jobs:
-  build:
-
+  source-generator-build-pack-test:
     runs-on: ubuntu-latest
+
     steps:
-    - uses: actions/checkout@v3
-    - name: Get Branch Name
-      run: echo "BRANCH_NAME=${GITHUB_REF##*/}" >> $GITHUB_ENV
-    - name: Setup Version
-      run: echo "VERSION=0.51.${{ github.run_number }}-$(BRANCH_NAME)" >> $GITHUB_ENV
-    - name: Echo Branch Name
-      run: echo $BRANCH_NAME
+
+    - uses: actions/checkout@v2
     - name: Setup .NET 3.1
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.x
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v2
+    - name: Setup .NET 6.0
+      uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 6.0.x
     - name: Restore dependencies
-      run: dotnet restore Libraries/Libraries.sln
+      run: |
+        dotnet restore Libraries/src/Amazon.Lambda.Annotations/Amazon.Lambda.Annotations.csproj
+        dotnet restore Libraries/test/Amazon.Lambda.Annotations.SourceGenerators.Tests/Amazon.Lambda.Annotations.SourceGenerators.Tests.csproj
+        dotnet restore Libraries/test/TestServerlessApp.IntegrationTests/TestServerlessApp.IntegrationTests.csproj
     - name: Build
-      run: dotnet build Libraries/Libraries.sln --no-restore
+      run: |
+        dotnet build Libraries/src/Amazon.Lambda.Annotations/Amazon.Lambda.Annotations.csproj --no-restore --configuration Release
+        dotnet build Libraries/test/Amazon.Lambda.Annotations.SourceGenerators.Tests/Amazon.Lambda.Annotations.SourceGenerators.Tests.csproj --no-restore --configuration Release
+        dotnet build Libraries/test/TestServerlessApp.IntegrationTests/TestServerlessApp.IntegrationTests.csproj --no-restore --configuration Release
+    - name: Pack
+      run: dotnet pack Libraries/src/Amazon.Lambda.Annotations/Amazon.Lambda.Annotations.csproj -p:NuspecFile=../Amazon.Lambda.Annotations.nuspec --no-build --configuration Release --output "PackResults"
+    - name: Upload pack results
+      uses: actions/upload-artifact@v2
+      with:
+        name: source-generator-nuget-package
+        path: PackResults
+      # Use always() to always run this step to publish test results when there are test failures
+      if: ${{ always() }}
     - name: Test
-      run: dotnet test Libraries/test/Amazon.Lambda.Annotations.SourceGenerators.Tests/Amazon.Lambda.Annotations.SourceGenerators.Tests.csproj
-      
-#      - cd Libraries
-#      - dotnet build -c Release
-#      - dotnet test test/Amazon.Lambda.Annotations.SourceGenerators.Tests/Amazon.Lambda.Annotations.SourceGenerators.Tests.csproj --results-directory $CODEBUILD_SRC_DIR/TestResults --logger trx
-#      - VERSION="0.5.1-preview-$CODEBUILD_BUILD_NUMBER-$Branch"
-#      - dotnet pack -c Release src/Amazon.Lambda.Annotations/Amazon.Lambda.Annotations.csproj -p:NuspecFile=$CODEBUILD_SRC_DIR/Libraries/src/Amazon.Lambda.Annotations.nuspec -p:NuspecProperties="Version=0.5.1-preview-$CODEBUILD_BUILD_NUMBER-$Branch" -p:TargetFrameworks=netstandard2.0
-#      - dotnet pack -c Release src/Amazon.Lambda.Annotations.SourceGenerator/Amazon.Lambda.Annotations.SourceGenerator.csproj -p:NuspecProperties="Version=0.5.1-preview-$CODEBUILD_BUILD_NUMBER-$Branch" -p:TargetFrameworks=netstandard2.0
-      
+      run: |
+        dotnet test Libraries/test/Amazon.Lambda.Annotations.SourceGenerators.Tests/Amazon.Lambda.Annotations.SourceGenerators.Tests.csproj --no-build --configuration Release --verbosity normal --logger trx --results-directory "TestResults"
+        dotnet test Libraries/test/TestServerlessApp.IntegrationTests/TestServerlessApp.IntegrationTests.csproj --no-build --configuration Release --verbosity normal --logger trx --results-directory "TestResults"
+    - name: Upload test results
+      uses: actions/upload-artifact@v2
+      with:
+        name: source-generator-test-result
+        path: TestResults
+      # Use always() to always run this step to publish test results when there are test failures
+      if: ${{ always() }}

@@ -12,8 +12,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-
     - uses: actions/checkout@v2
+    - name: Get Branch Name
+      run: echo "BRANCH_NAME=${GITHUB_REF##*/}" >> $GITHUB_ENV
+    - name: Setup Version
+      run: echo "VERSION=0.51.${{ github.run_number }}-$(BRANCH_NAME)" >> $GITHUB_ENV
+    - name: Echo Branch Name
+      run: echo $BRANCH_NAME
     - name: Setup .NET 3.1
       uses: actions/setup-dotnet@v1
       with:
@@ -44,7 +49,6 @@ jobs:
     - name: Test
       run: |
         dotnet test Libraries/test/Amazon.Lambda.Annotations.SourceGenerators.Tests/Amazon.Lambda.Annotations.SourceGenerators.Tests.csproj --no-build --configuration Release --verbosity normal --logger trx --results-directory "TestResults"
-        dotnet test Libraries/test/TestServerlessApp.IntegrationTests/TestServerlessApp.IntegrationTests.csproj --no-build --configuration Release --verbosity normal --logger trx --results-directory "TestResults"
     - name: Upload test results
       uses: actions/upload-artifact@v2
       with:

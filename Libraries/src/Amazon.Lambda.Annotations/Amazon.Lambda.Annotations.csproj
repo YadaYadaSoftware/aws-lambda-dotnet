@@ -7,6 +7,7 @@
 	  -->
     <AssemblyVersion>0.5.1.0</AssemblyVersion>
     <TargetFramework>netstandard2.0</TargetFramework>
+	  <RepositoryUrl>https://github.com/hounddog22030/extensions.git</RepositoryUrl>
   </PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)' == 'Release'">

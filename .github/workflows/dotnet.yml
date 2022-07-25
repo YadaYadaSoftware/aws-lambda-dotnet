@@ -37,8 +37,10 @@ jobs:
         dotnet build Libraries/src/Amazon.Lambda.Annotations/Amazon.Lambda.Annotations.csproj --no-restore --configuration Release
         dotnet build Libraries/test/Amazon.Lambda.Annotations.SourceGenerators.Tests/Amazon.Lambda.Annotations.SourceGenerators.Tests.csproj --no-restore --configuration Release
         dotnet build Libraries/test/TestServerlessApp.IntegrationTests/TestServerlessApp.IntegrationTests.csproj --no-restore --configuration Release
-    - name: Pack
+    - name: Pack Annotations
       run: dotnet pack Libraries/src/Amazon.Lambda.Annotations/Amazon.Lambda.Annotations.csproj -p:NuspecFile=../Amazon.Lambda.Annotations.nuspec --no-build --configuration Release --output "PackResults" -p:NuspecProperties="Version=$V"
+    - name: Pack Generators
+      run: dotnet pack Libraries/src/Amazon.Lambda.Annotations.SourceGenerator/Amazon.Lambda.Annotations.SourceGenerator.csproj -p:NuspecProperties="Version=$V" -p:TargetFrameworks=netstandard2.0
     - name: Upload pack results
       uses: actions/upload-artifact@v2
       with:

@@ -6,6 +6,7 @@
 
     <!-- This is required to allow copying all the dependencies to bin directory which can be copied after to nuget package based on nuspec -->
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+	  <RepositoryUrl>https://github.com/hounddog22030/aws-lambda-dotnet.git</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>

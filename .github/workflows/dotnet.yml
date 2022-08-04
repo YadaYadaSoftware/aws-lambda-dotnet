@@ -55,9 +55,9 @@ jobs:
         dotnet build Libraries/test/Amazon.Lambda.Annotations.SourceGenerators.Tests/Amazon.Lambda.Annotations.SourceGenerators.Tests.csproj --no-restore --configuration Release
         dotnet build Libraries/test/TestServerlessApp.IntegrationTests/TestServerlessApp.IntegrationTests.csproj --no-restore --configuration Release
     - name: Pack Annotations
-      run: dotnet pack Libraries/src/Amazon.Lambda.Annotations/Amazon.Lambda.Annotations.csproj -p:NuspecFile=../Amazon.Lambda.Annotations.nuspec --no-build --configuration Release --output "PackResults" -p:NuspecProperties="Version=$V;Repository=http://nowhere.com"
+      run: dotnet pack Libraries/src/Amazon.Lambda.Annotations/Amazon.Lambda.Annotations.csproj -p:NuspecFile=../Amazon.Lambda.Annotations.nuspec --no-build --configuration Release --output "PackResults" -p:NuspecProperties="Version=$V;Repository/Url=https://github.com/yadayadasoftware/aws-lambda-dotnet.git"
     - name: Pack Generators
-      run: dotnet pack Libraries/src/Amazon.Lambda.Annotations.SourceGenerator/Amazon.Lambda.Annotations.SourceGenerator.csproj -p:PackageVersion=$V -p:TargetFrameworks=netstandard2.0 -p:RepositoryUrl=http://nowhere2.com --output "PackResults"
+      run: dotnet pack Libraries/src/Amazon.Lambda.Annotations.SourceGenerator/Amazon.Lambda.Annotations.SourceGenerator.csproj -p:PackageVersion=$V -p:TargetFrameworks=netstandard2.0 -p:RepositoryUrl=https://github.com/yadayadasoftware/aws-lambda-dotnet.git --output "PackResults"
     - name: Upload pack results
       uses: actions/upload-artifact@v2
       with:

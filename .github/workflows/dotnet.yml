@@ -31,7 +31,7 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         include-prerelease: true
-        dotnet-version: 7.0.100-preview.6
+        dotnet-version: 7.0.100-preview.6.22352.1
     - name: Restore dependencies
       run: |
         dotnet restore Libraries/src/Amazon.Lambda.Annotations/Amazon.Lambda.Annotations.csproj

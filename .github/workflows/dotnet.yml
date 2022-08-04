@@ -3,10 +3,7 @@ name: Source Generator CI2
 on:
   workflow_dispatch:
   push:
-    branches:
-      - feature/annotations-enchilada
-  pull_request:
-
+    branches: [ "master","feature/annotations-enchilada","feature/annotations-queue" ]
 jobs:
   source-generator-build-pack-test:
     runs-on: ubuntu-latest
@@ -16,17 +13,22 @@ jobs:
     - name: Get Branch Name
       run: echo "BRANCH_NAME=${GITHUB_REF##*/}" >> $GITHUB_ENV
     - name: Setup Version
-      run: echo "V=0.52.${{ github.run_number }}-$BRANCH_NAME" >> $GITHUB_ENV
-    - name: Echo Version
-      run: echo $V
+      run: echo "VERSION=0.6.${{ github.run_number }}-$BRANCH_NAME" >> $GITHUB_ENV
+    - name: Echo Branch Name
+      run: echo $BRANCH_NAME
     - name: Setup .NET 3.1
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.x
-    - name: Setup .NET 6.0
-      uses: actions/setup-dotnet@v1
+    - name: Setup .NET 6
+      uses: actions/setup-dotnet@v2
       with:
         dotnet-version: 6.0.x
+    - name: Setup .NET 7.0
+      uses: actions/setup-dotnet@v1
+      with:
+        include-prerelease: true
+        dotnet-version: 7.0.100-preview.6.22352.1
     - name: Restore dependencies
       run: |
         dotnet restore Libraries/src/Amazon.Lambda.Annotations/Amazon.Lambda.Annotations.csproj

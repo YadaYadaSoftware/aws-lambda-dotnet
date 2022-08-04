@@ -16,9 +16,9 @@ namespace TestServerlessApp
             eventBridgeRuleFunctions = new EventBridgeRuleFunctions();
         }
 
-        public System.Threading.Tasks.Task SampleEventHandler(Amazon.Lambda.CloudWatchEvents.CloudWatchEvent<TestServerlessApp.SampleEvent> input, Amazon.Lambda.Core.ILambdaContext __context__)
+        public async System.Threading.Tasks.Task<int> SampleEventHandler(Amazon.Lambda.CloudWatchEvents.CloudWatchEvent<TestServerlessApp.SampleEvent> input, Amazon.Lambda.Core.ILambdaContext __context__)
         {
-            return eventBridgeRuleFunctions.SampleEventHandler(input, __context__);
+            return await eventBridgeRuleFunctions.SampleEventHandler(input, __context__);
         }
 
         private static void SetExecutionEnvironment()
@@ -33,7 +33,7 @@ namespace TestServerlessApp
                 envValue.Append($"{Environment.GetEnvironmentVariable(envName)}_");
             }
 
-            envValue.Append("amazon-lambda-annotations_0.5.1.0");
+            envValue.Append("amazon-lambda-annotations_0.6.0.0");
 
             Environment.SetEnvironmentVariable(envName, envValue.ToString());
         }

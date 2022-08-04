@@ -26,11 +26,18 @@ jobs:
       uses: actions/setup-dotnet@v2
       with:
         dotnet-version: 6.0.x
+        source-url: https://nuget.pkg.github.com/yadayadasoftware/index.json
+      env:
+        NUGET_AUTH_TOKEN: ${{github.token}}
+
     - name: Setup .NET 7.0
       uses: actions/setup-dotnet@v1
+      env:
+        NUGET_AUTH_TOKEN: ${{github.token}}
       with:
         include-prerelease: true
         dotnet-version: 7.0.100-preview.6.22352.1
+        source-url: https://nuget.pkg.github.com/yadayadasoftware/index.json
     - name: Restore dependencies
       run: |
         dotnet restore Libraries/src/Amazon.Lambda.Annotations/Amazon.Lambda.Annotations.csproj
@@ -62,9 +69,5 @@ jobs:
         path: TestResults
       # Use always() to always run this step to publish test results when there are test failures
       if: ${{ always() }}
-    - name: Find NuPkg
-      run: find -name "PackResults/*.nupkg"
-    - name: Setup GitHub Nuget
-      run: dotnet nuget add source --username hounddog22030 --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/hounddog22030/index.json"
     - name: Publish Package To GitHub
-      run: dotnet nuget push PackResults/*.nupkg --api-key ${{ secrets.GITHUB_TOKEN }} --source "github"
+      run: dotnet nuget push PackResults/*.nupkg

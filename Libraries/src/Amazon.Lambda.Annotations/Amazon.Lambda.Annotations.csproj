@@ -1,11 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-	  <!--
-		VersionPrefix - this is the only way I can figure out how to publish 
-		this locally in codebuild and give a unique number
-	  -->
-    <AssemblyVersion>0.5.1.0</AssemblyVersion>
+    <AssemblyVersion>0.6.0.0</AssemblyVersion>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 

@@ -7,7 +7,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-        <PackageReference Include="Amazon.Lambda.CloudWatchEvents" Version="4.0.0" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
         <PackageReference Include="Moq" Version="4.16.1" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
@@ -42,13 +41,10 @@
         </Content>
         <Content Remove="..\..\src\Amazon.Lambda.Annotations\obj\**" />
 		<Content Remove="..\..\src\Amazon.Lambda.Annotations\bin\**" />
-		<EmbeddedResource Remove="Models\Attributes\**" />
-		<None Remove="Models\Attributes\**" />
 		<Content Remove="..\..\src\Amazon.Lambda.Annotations\Amazon.Lambda.Annotations.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Remove="Models\Attributes\**" />
       <Compile Remove="Snapshots\**" />
     </ItemGroup>
 
@@ -57,9 +53,9 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Remove="Snapshots\ServerlessTemplates\eventbridgerule.template" />
       <None Remove="Snapshots\ServerlessTemplates\messaging.template" />
       <None Remove="Snapshots\ServerlessTemplates\subnamespace.template" />
+      <None Remove="Snapshots\ServerlessTemplates\voidexample.template" />
     </ItemGroup>
 
   <ItemGroup>
@@ -71,6 +67,7 @@
     <ItemGroup>
       <ProjectReference Include="..\..\src\Amazon.Lambda.Annotations.SourceGenerator\Amazon.Lambda.Annotations.SourceGenerator.csproj" />
       <ProjectReference Include="..\..\src\Amazon.Lambda.APIGatewayEvents\Amazon.Lambda.APIGatewayEvents.csproj" />
+      <ProjectReference Include="..\..\src\Amazon.Lambda.CloudWatchEvents\Amazon.Lambda.CloudWatchEvents.csproj" />
       <!-- 
 	    We need to force using the .NET Standard 2.0 version because the source generator test framework will complain
 		about using newer versions of System.Runtime then it can handle. This is not an issue in a end user scenario.
@@ -78,6 +75,16 @@
       <ProjectReference Include="..\..\src\Amazon.Lambda.Core\Amazon.Lambda.Core.csproj" AdditionalProperties="TargetFramework=netstandard2.0" />
       <ProjectReference Include="..\..\src\Amazon.Lambda.Serialization.SystemTextJson\Amazon.Lambda.Serialization.SystemTextJson.csproj" />
       <ProjectReference Include="..\..\src\Amazon.Lambda.SQSEvents\Amazon.Lambda.SQSEvents.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Models\Attributes\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Update="Snapshots\VoidExample_VoidReturn_Generated.g.cs">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
     </ItemGroup>
 
 

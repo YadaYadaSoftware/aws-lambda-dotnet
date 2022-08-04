@@ -19,10 +19,9 @@ namespace TestServerlessApp
         /// <returns></returns>
         [LambdaFunction]
         [SqsMessage(EventQueueARN = "arn:aws:sqs:us-east-1:968993296699:app-deploy-blue-LAVETRYB3JKX-SomeQueueName", EventBatchSize = 11)]
-        public Task MessageHandlerForPreExistingQueue(SQSEvent.SQSMessage message, ILambdaContext context)
+        public async Task MessageHandlerForPreExistingQueue(SQSEvent.SQSMessage message, ILambdaContext context)
         {
             LambdaLogger.Log($"Message Received: {message.MessageId}");
-            return Task.CompletedTask;
         }
 
         /// <summary>
@@ -53,20 +52,18 @@ namespace TestServerlessApp
             RedriveAllowPolicy = "{ 'redrivePermission' : 'denyAll' }",
             RedrivePolicy = "{ 'deadLetterTargetArn': 'arn:somewhere', 'maxReceiveCount': 5 }",
             Tags = new string[]{ "keyname1=value1", "keyname2=value2" })]
-        public Task MessageHandlerForNewQueue(SQSEvent.SQSMessage message, ILambdaContext context)
+        public async Task MessageHandlerForNewQueue(SQSEvent.SQSMessage message, ILambdaContext context)
         {
             LambdaLogger.Log($"Message Received: {message.MessageId}");
-            return Task.CompletedTask;
         }
 
         [LambdaFunction]
         [SqsMessage(
             FifoQueue = true,
             QueueName = "{ 'Fn::Sub' : '${AWS::Stack}MyFifoQueueWithStackEmbedded.fifo' }")]
-        public Task MessageHandlerForNewFifoQueueUsingFnSubForQueueName(SQSEvent.SQSMessage message, ILambdaContext context)
+        public async Task MessageHandlerForNewFifoQueueUsingFnSubForQueueName(SQSEvent.SQSMessage message, ILambdaContext context)
         {
             LambdaLogger.Log($"Message Received: {message.MessageId}");
-            return Task.CompletedTask;
         }
 
         /// <summary>

@@ -1,10 +1,13 @@
 name: Source Generator CI2
 
+permissions: write-all
+
 on:
   workflow_dispatch:
   push:
     branches: ["feature/annotations-enchilada","feature/annotations-queue"]
   pull_request:
+
 
 jobs:
   source-generator-build-pack-test:
@@ -22,6 +25,9 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.x
+        source-url: https://nuget.pkg.github.com/yadayadasoftware/index.json
+      env:
+        NUGET_AUTH_TOKEN: ${{github.token}}
     - name: Setup .NET 6
       uses: actions/setup-dotnet@v2
       with:

@@ -3,9 +3,7 @@ name: Source Generator CI2
 on:
   workflow_dispatch:
   push:
-    branches:
-      - "feature/annotations-enchilada"
-      - "feature/annotations-queue"
+    branches: ["feature/annotations-enchilada","feature/annotations-queue"]
   pull_request:
 
 jobs:

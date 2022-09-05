@@ -208,8 +208,7 @@
             "Type": "HttpApi",
             "Properties": {
               "Path": "/ComplexCalculator/Add",
-              "Method": "POST",
-              "PayloadFormatVersion": "2.0"
+              "Method": "POST"
             }
           }
         },
@@ -241,8 +240,7 @@
             "Type": "HttpApi",
             "Properties": {
               "Path": "/ComplexCalculator/Subtract",
-              "Method": "POST",
-              "PayloadFormatVersion": "2.0"
+              "Method": "POST"
             }
           }
         },
@@ -384,6 +382,26 @@
         "ImageConfig": {
           "Command": [
             "TestServerlessApp::TestServerlessApp.VoidExample_VoidReturn_Generated::VoidReturn"
+          ]
+        }
+      }
+    },
+    "TestServerlessAppTaskExampleTaskReturnGenerated": {
+      "Type": "AWS::Serverless::Function",
+      "Metadata": {
+        "Tool": "Amazon.Lambda.Annotations"
+      },
+      "Properties": {
+        "MemorySize": 256,
+        "Timeout": 30,
+        "Policies": [
+          "AWSLambdaBasicExecutionRole"
+        ],
+        "PackageType": "Image",
+        "ImageUri": ".",
+        "ImageConfig": {
+          "Command": [
+            "TestServerlessApp::TestServerlessApp.TaskExample_TaskReturn_Generated::TaskReturn"
           ]
         }
       }

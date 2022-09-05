@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using Amazon.Lambda.Annotations.SourceGenerator.Diagnostics;
@@ -11,9 +8,7 @@ using Amazon.Lambda.Annotations.SourceGenerator.Models;
 using Amazon.Lambda.Annotations.SourceGenerator.Templates;
 using Amazon.Lambda.Annotations.SourceGenerator.Writers;
 using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.CodeAnalysis.Text;
-using Microsoft.CodeAnalysis.VisualBasic;
 
 namespace Amazon.Lambda.Annotations.SourceGenerator
 {
@@ -22,7 +17,6 @@ namespace Amazon.Lambda.Annotations.SourceGenerator
     {
         private readonly IFileManager _fileManager = new FileManager();
         private readonly IDirectoryManager _directoryManager = new DirectoryManager();
-        private readonly IJsonWriter _jsonWriter = new JsonWriter();
 
         public Generator()
         {
@@ -69,12 +63,12 @@ namespace Amazon.Lambda.Annotations.SourceGenerator
 
                 var annotationReport = new AnnotationReport();
 
-                var templateFinder = new CloudFormationTemplateFinder(_fileManager, _directoryManager);
+                var templateHandler = new CloudFormationTemplateHandler(_fileManager, _directoryManager);
 
                 foreach (var lambdaMethod in receiver.LambdaMethods)
                 {
                     var lambdaMethodModel = semanticModelProvider.GetMethodSemanticModel(lambdaMethod);
-                    
+
                     // Check for necessary references
                     if (lambdaMethodModel.HasAttribute(context, TypeFullNames.RestApiAttribute)
                         || lambdaMethodModel.HasAttribute(context, TypeFullNames.HttpApiAttribute))
@@ -87,7 +81,7 @@ namespace Amazon.Lambda.Annotations.SourceGenerator
                                 "Amazon.Lambda.APIGatewayEvents"));
                         }
                     }
-                    
+
                     var model = LambdaFunctionModelBuilder.Build(lambdaMethodModel, configureMethodModel, context);
 
                     // If there are more than one event, report them as errors
@@ -117,12 +111,22 @@ namespace Amazon.Lambda.Annotations.SourceGenerator
                 // Run the CloudFormation sync if any LambdaMethods exists. Also run if no LambdaMethods exists but there is a
                 // CloudFormation template in case orphaned functions in the template need to be removed.
                 // Both checks are required because if there is no template but there are LambdaMethods the CF template the template will be created.
-                if (receiver.LambdaMethods.Any() || templateFinder.DoesCloudFormationTemplateExist(receiver.ProjectDirectory))
+                if (receiver.LambdaMethods.Any() || templateHandler.DoesTemplateExist(receiver.ProjectDirectory))
                 {
-                    annotationReport.CloudFormationTemplatePath = templateFinder.FindCloudFormationTemplate(receiver.ProjectDirectory);
+                    annotationReport.CloudFormationTemplatePath = templateHandler.FindTemplate(receiver.ProjectDirectory);
                     annotationReport.ProjectRootDirectory = receiver.ProjectDirectory;
-                    var cloudFormationJsonWriter = new CloudFormationJsonWriter(_fileManager, _directoryManager, _jsonWriter, diagnosticReporter);
-                    cloudFormationJsonWriter.ApplyReport(annotationReport);
+                    var templateFormat = templateHandler.DetermineTemplateFormat(annotationReport.CloudFormationTemplatePath);
+                    ITemplateWriter templateWriter;
+                    if (templateFormat == CloudFormationTemplateFormat.Json)
+                    {
+                        templateWriter = new JsonWriter();
+                    }
+                    else
+                    {
+                        templateWriter = new YamlWriter();
+                    }
+                    var cloudFormationWriter = new CloudFormationWriter(_fileManager, _directoryManager, templateWriter, diagnosticReporter);
+                    cloudFormationWriter.ApplyReport(annotationReport);
                 }
 
             }
